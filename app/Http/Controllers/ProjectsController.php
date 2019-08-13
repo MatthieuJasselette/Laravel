@@ -26,12 +26,14 @@ class ProjectsController extends Controller
 
     public function show(Project $project)
     {
-        $this->authorize('view', $project);
+        $this->authorize('update', $project);
+        // optionnal, use abort_if / abort_unless & \Gate::denies / ::allows
         return view('projects.show', compact('project'));
     }
 
     public function create()
     {
+        $this->authorize('update', $project);
         return view('projects.create');
     }
 
@@ -42,6 +44,7 @@ class ProjectsController extends Controller
             'description' => ['required', 'min:3']
         ]);
 
+        $this->authorize('update', $project);
         Project::create($attributes + ['owner_id' => auth()->id()]);
 
         return redirect('/projects');
@@ -49,11 +52,12 @@ class ProjectsController extends Controller
     
     public function edit(Project $project)
     {
-        return view('projects.edit', compact('project'));
+        vreturn view('projects.edit', compact('project'));
     }
     
     public function update(Project $project)
     {
+        $this->authorize('update', $project);
         $project->update(request(['title', 'description']));
 
         return redirect('/projects');
@@ -61,6 +65,7 @@ class ProjectsController extends Controller
 
     public function destroy(Project $project)
     {
+        $this->authorize('update', $project);
         $project->delete();
 
         return redirect('/projects');
