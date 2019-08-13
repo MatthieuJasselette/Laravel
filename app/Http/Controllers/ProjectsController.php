@@ -52,7 +52,7 @@ class ProjectsController extends Controller
     
     public function edit(Project $project)
     {
-        vreturn view('projects.edit', compact('project'));
+        return view('projects.edit', compact('project'));
     }
     
     public function update(Project $project)
