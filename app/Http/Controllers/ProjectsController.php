@@ -4,27 +4,24 @@ namespace App\Http\Controllers;
 
 // Imports the model
 use App\Project;
-use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
-    // public function __contruct()
-    // {
-    //     $this->middleware('auth')->except(['index', 'show']);
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
         // with the model imported
-        $projects = Project::all();
+        $projects = Project::where('owner_id', auth()->id())->get();
         // Uses eloquent syntax instead of sql to query datas
 
-        // without the imported model
-        // $projects = \App\Project::all();
 
-        return view('projects.index', ['projects'=>$projects]);
+        // return view('projects.index', ['projects'=>$projects]);
         // or
-        // return view('projects.index', compact('projects'));
+        return view('projects.index', compact('projects'));
     }
 
     public function show(Project $project)
