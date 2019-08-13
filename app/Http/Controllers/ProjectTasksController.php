@@ -8,14 +8,6 @@ use Illuminate\Http\Request;
 
 class ProjectTasksController extends Controller
 {
-    public function update(Task $task)
-    {
-        $task->update([
-            'completed' => request()->has('completed')
-        ]);
-
-        return back();
-    }
 
     public function store(Project $project, Request $request)
     {
@@ -26,6 +18,13 @@ class ProjectTasksController extends Controller
         //     'project_id' => $project->id,
         //     'description' => request('description')
         // ]);
+
+        return back();
+    }
+
+    public function update(Task $task)
+    {
+        $task->complete(request()->has('completed'));
 
         return back();
     }
