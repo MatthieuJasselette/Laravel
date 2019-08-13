@@ -24,7 +24,7 @@ class ProjectTasksController extends Controller
 
     public function update(Task $task)
     {
-        $task->complete(request()->has('completed'));
+        $task->toggleComplete(request()->has('completed'));
 
         return back();
     }

@@ -8,7 +8,7 @@ class Task extends Model
 {
     protected $guarded = [];
 
-    public function complete($completed = true)
+    public function toggleComplete($completed = '!completed')
     {
         $this->update(compact('completed'));
     }
