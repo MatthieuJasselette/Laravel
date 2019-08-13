@@ -10,6 +10,10 @@
     .is-complete{
       text-decoration: line-through;
     }
+    body{
+      width: 90%;
+      margin: 0 5%;
+    }
   </style>
 </head>
 <body>
