@@ -17,9 +17,10 @@
           <form method="POST" action="/tasks/{{ $task->id }}">
             @method('PATCH')
             @csrf
-            <label class="checkbox" for="complete">
-              <input type="checkbox" name="complete"
-              onChange="this.form.submit()">
+            <label class="checkbox {{ $task->completed ? 'is-complete' : '' }}" for="completed">
+              <input type="checkbox" name="completed"
+              onChange="this.form.submit()"
+              {{ $task->completed ? 'checked' : '' }}>
               {{ $task->description }}
             </label>
           </form>
