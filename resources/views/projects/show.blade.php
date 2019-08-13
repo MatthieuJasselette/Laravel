@@ -45,6 +45,7 @@
           <button type="submit" class="button is-link">Add task</button>
         </div>
       </div>
+    @include('errors')
     </form>
   </div>
 @endsection
