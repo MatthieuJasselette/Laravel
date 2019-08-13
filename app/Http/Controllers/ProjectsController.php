@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
+    // public function __contruct()
+    // {
+    //     $this->middleware('auth')->except(['index', 'show']);
+    // }
+
     public function index()
     {
         // with the model imported
@@ -34,12 +39,14 @@ class ProjectsController extends Controller
 
     public function store()
     {
-        request()->validate([
+        $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'description' => ['required', 'min:3']
         ]);
 
-        Project::create($validated);
+        $attributes['owner_id'] = auth()->id();
+
+        Project::create($attributes);
 
         return redirect('/projects');
     }
