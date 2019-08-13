@@ -32,3 +32,5 @@ route::delete('projects/{project}', 'ProjectsController@destroy');
 // Or use
 route::resource('projects', 'ProjectsController');
 */
+
+Route::patch('/tasks/{task}', 'ProjectTasksController@update');
