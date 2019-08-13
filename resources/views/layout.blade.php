@@ -8,7 +8,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css">
 </head>
 <body>
-    <p><a href="/">Home</a></p>
+  <div class="d-flex">
+    <a href="/">Home</a> |
+    <a href="/projects">See our amazing projects</a>
+  </div>
   <div class="container">
     @yield('content')
   </div>

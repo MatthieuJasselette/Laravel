@@ -2,7 +2,6 @@
 
 @section('content')
     <h1 class="title">Home page</h1>
-    <a href="/projects">See our amazing projects</a>
 
 <!-- vanilla php -->
     <!-- <ul>
