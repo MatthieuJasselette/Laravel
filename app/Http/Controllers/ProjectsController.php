@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // Imports the model
 use App\Project;
+use App\Mail\ProjectCreated;
 
 class ProjectsController extends Controller
 {
@@ -18,7 +19,7 @@ class ProjectsController extends Controller
         $projects = Project::where('owner_id', auth()->id())->get();
         // Uses eloquent syntax instead of sql to query datas
 
-
+        // dump($projects);
         // return view('projects.index', ['projects'=>$projects]);
         // or
         return view('projects.index', compact('projects'));
@@ -41,8 +42,15 @@ class ProjectsController extends Controller
             'title' => ['required', 'min:3'],
             'description' => ['required', 'min:3']
         ]);
+        
+        $attributes['owner_id'] = auth()->id();
 
-        Project::create($attributes + ['owner_id' => auth()->id()]);
+        $project = Project::create($attributes);
+        // $project = Project::create($attributes + ['owner_id' => auth()->id()]);
+
+        \Mail::to('matthieu.jasselette@gmail.com')->send(
+            new ProjectCreated($project)
+        );
 
         return redirect('/projects');
     }
