@@ -27,7 +27,9 @@ class AuthServiceProvider extends ServiceProvider
 
         // $gate->before(function ($user) {
         Gate::before(function ($user) {
-            return $user->id == 2;
+             if ($user->id == 2){
+                return true;
+            }
         });
     }
 }
