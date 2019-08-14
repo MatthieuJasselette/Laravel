@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// Imports the model
 use App\Project;
 use App\Mail\ProjectCreated;
 
@@ -15,14 +14,9 @@ class ProjectsController extends Controller
 
     public function index()
     {
-        // with the model imported
-        $projects = Project::where('owner_id', auth()->id())->get();
-        // Uses eloquent syntax instead of sql to query datas
-
-        // dump($projects);
-        // return view('projects.index', ['projects'=>$projects]);
-        // or
-        return view('projects.index', compact('projects'));
+        return view('projects.index', [
+            'projects' => auth()->user()->projects
+        ]);
     }
 
     public function show(Project $project)
@@ -38,15 +32,15 @@ class ProjectsController extends Controller
 
     public function store()
     {
-        $attributes = request()->validate([
-            'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:3']
-        ]);
+        $attributes = $this->validateProject();
+        // $attributes = request()->validate([
+        //     'title' => ['required', 'min:3'],
+        //     'description' => ['required', 'min:3']
+        // ]);
         
         $attributes['owner_id'] = auth()->id();
 
         $project = Project::create($attributes);
-        // $project = Project::create($attributes + ['owner_id' => auth()->id()]);
 
         \Mail::to('matthieu.jasselette@gmail.com')->send(
             new ProjectCreated($project)
@@ -62,7 +56,12 @@ class ProjectsController extends Controller
     
     public function update(Project $project)
     {
-        $project->update(request(['title', 'description']));
+        // $attributes = request()->validate([
+        //     'title' => ['required', 'min:3'],
+        //     'description' => ['required', 'min:3']
+        // ]);
+
+        $project->update($this->validateProject());
 
         return redirect('/projects');
     }
@@ -74,4 +73,11 @@ class ProjectsController extends Controller
         return redirect('/projects');
     }
 
+    protected function validateProject()
+    {
+        return request()->validate([
+            'title' => ['required', 'min:3'],
+            'description' => ['required', 'min:3']
+        ]);
+    }
 }

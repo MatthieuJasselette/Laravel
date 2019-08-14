@@ -19,9 +19,7 @@
         name="description"
         class=" input {{ $errors->has('description') ? 'is-danger' : ''}}"
         placeholder="Project decription"
-        required>
-          {{ old('description') }}
-      </textarea>
+        required>{{ old('description') }}</textarea>
     </div>
     <div>
       <button type="submit">Create project</button>

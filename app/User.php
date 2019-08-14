@@ -28,6 +28,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'owner_id');
+        // select * from projects where owner_id = i
+        // /!\ override laravel default user_id with second argument
+    }
+
     /**
      * The attributes that should be cast to native types.
      *

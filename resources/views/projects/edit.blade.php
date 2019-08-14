@@ -26,9 +26,11 @@
     <div class="control">
         <button type="submit" class="button is-link">Update project</button>
       </div>
-
     </div>
   </form>
+
+@include('errors')
+
   <form method="POST" action="/projects/{{ $project->id }}">
   <!-- Can't submit a method PATH so use POST and then the following
     {{ method_field('DELETE') }}
